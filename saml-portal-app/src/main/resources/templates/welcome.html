@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PCMS Portal Application</title>
+    <link rel="stylesheet" href="/portal-app/css/node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css"/>
+    <h2 align="left">Welcome to PCMS Portal Application Simulator</h2>
+    <hr/>
+    <style type="text/css">
+        body { background: lightgrey !important; }
+    </style>
+ </head>
+<body class="customcolor-controls-background">
+<form action="/portal-app/saml-request" method="post">
+    <table>
+        <tr>
+            <td><label>Enter Application URL*</label></td>
+            <td><input size="70" name="app-url" type="text"></td>
+        </tr>
+        <tr>
+            <td><label>Enter a UserID* </label></td>
+            <td><input name="user-id" type="text"></td>
+        </tr>
+        <tr>
+            <td><label>Enter SAML key Id (for POST request body)* </label></td>
+            <td><input name="saml-id" type="text"></td>
+        </tr>
+        <tr>
+            <td><label>Enter SAML Issuer Id </label></td>
+            <td><input size="70" name="saml-issuer-id" type="text"></td>
+        </tr>
+        <tr>
+            <td><label>Select User Type* </label></td>
+            <td><select name="userType" class="dropdown">
+                <option>CUST-USER</option>
+                <!--<option>BANK-USER</option>-->
+            </select></td>
+        </tr>
+        <tr>
+            <td><label>Enter Keep-Alive URL</label></td>
+            <td><input size="70" name="keep-alive-url" type="text"></td>
+        </tr>
+    </table>
+    <tr><td><input type="submit" value="Submit Request" class="btn btn-primary"></td></tr>
+</form>
+
+</body>
+</html>

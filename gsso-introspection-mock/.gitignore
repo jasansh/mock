@@ -1,0 +1,19 @@
+# eclipse
+.settings/
+.classpath
+.project
+
+# intellij
+.idea/
+*.iml
+
+# Maven
+target/
+
+# Logs
+tomcatlogs/
+waslogs/
+
+# Groovy
+out/
+.vscode/settings.json

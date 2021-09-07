@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+
+<script>
+window.addEventListener( "load", function () {
+	
+	function urlencodeFormData(fd){
+    var s = '';
+    function encode(s){ return encodeURIComponent(s).replace(/%20/g,'+'); }
+    for(var pair of fd.entries()){
+        if(typeof pair[1]=='string'){
+            s += (s?'&':'') + encode(pair[0])+'='+encode(pair[1]);
+        }
+    }
+    return s;
+	}
+	
+  function sendData() {
+    const XHR = new XMLHttpRequest();
+
+    // Bind the FormData object and the form element
+    const FD = new FormData( form );
+
+    // Define what happens on successful data submission
+    XHR.addEventListener( "load", function(event) {
+      var json = JSON.parse(event.target.responseText);
+      document.getElementById("token").innerHTML = 'Token=' + json.token;
+    } );
+
+    // Define what happens in case of error
+    XHR.addEventListener( "error", function( event ) {
+      alert( 'Oops! Something went wrong.' );
+    } );
+
+    // Set up our request 
+    XHR.open( "POST", FD.get('mockUrl') );
+    XHR.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
+
+    // The data sent is what the user provided in the form
+    XHR.send( urlencodeFormData(FD) );
+  }
+ 
+  // Access the form element...
+  const form = document.getElementById( "test-form" );
+
+  // ...and take over its submit event.
+  form.addEventListener( "submit", function ( event ) {
+    event.preventDefault();
+
+    sendData();
+  } );
+} );
+</script>
+
+<body>
+  <div class="container">
+    <p>
+      <b>Create OAuth Token with given userid</b>
+    </p>
+    <p>
+      Type in desired userid and verify the OAuth mock endpoint address. 
+      <br>Press 'Get OAuth Token' to create new token.
+      <br><br>Token will be displayed at bottom of the page.
+    </p>
+
+    <form id="test-form">
+
+      <table cellspacing="0">
+        <tr>
+          <td>userId :</td>
+          <td><input name="userId" type="text" required size=76/></td>
+        </tr>
+        <tr>
+          <td>JTI (Optional):</td>
+          <td><input name="jti" type="text" size=76/></td>
+        </tr>
+        <tr>
+          <td>Time-to-Live (Seconds, Optional):</td>
+          <td><input name="ttl" type="number" size=76/></td>
+        </tr>
+        <tr>
+          <td>OAuth mock url :</td>
+          <td><input name="mockUrl" type="text"
+            value="http://10.254.187.115:9291/gsso-introspection-mock-1.0-SNAPSHOT/oauth2/login"
+            required size=76 /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button type="submit">Get OAuth Token</button></td>
+        </tr>
+      </table>
+
+      
+    </form>
+    <br>
+    <p id="token"></p>
+  </div>
+</body>
+
+</html>

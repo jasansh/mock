@@ -1,0 +1,38 @@
+@import "reset.css";
+/* VAM-API */
+* {
+    background-color: white;
+    font-family: Verdana, Helvetica, sans-serif;
+    font-size: medium;
+    color: #61B3E4;
+}
+
+@media screen and (min-width: 425px) {
+    body {
+        background: url("../images/Tieto_logo_150_50.png") no-repeat 100% 0%;
+    }
+
+}
+
+h1, h2, h3, strong {
+    font-weight: bold
+}
+
+h1 {
+    font-size: 180%
+}
+
+h1:first-child {
+    background-color: transparent !important;
+}
+
+h2 {
+    font-size: 110%
+}
+
+footer {
+    font-style: italic;
+    font-size: 90%;
+    border-top: #61B3E4 solid 1px;
+    margin-top: 1.5em;
+}

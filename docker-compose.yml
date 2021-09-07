@@ -1,0 +1,16 @@
+version: '3'
+services:
+  mvn:
+    image: fs-pcm-docker.maven.etb.tieto.com/tieto/mvn:3.6-latest
+    environment:
+      MAVEN_OPTS: '-Xmx1024M -Xss128M -XX:MetaspaceSize=512M -XX:MaxMetaspaceSize=1024M -XX:+CMSClassUnloadingEnabled'
+      MAVEN_CONFIG: /tmp
+    user: ${CURRENT_UID}:${CURRENT_GID}
+    command: mvn -B -Duser.home=/tmp   ${MVN_CMD}
+    working_dir: /build
+    volumes:
+      - .:/build
+      - ~/.m2/repository:/tmp/.m2/repository
+volumes:
+  graphite-data:
+  grafana-data:

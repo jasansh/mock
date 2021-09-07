@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>PCMS Portal Application</title>
+    <link rel="stylesheet" href="/portal-app/css/node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css"/>
+    <h2 align="left">Welcome to PCMS Portal Application Simulator</h2>
+    <style type="text/css">
+        body { background: lightgrey !important; }
+    </style>
+    <hr/>
+</head>
+<body>
+<div>
+<h4>The requested details are:</h4>
+<table class="table-bordered" >
+    <tr>
+        <th>Application URL: </th>
+        <td th:text="${appURL}"></p> </td>
+    </tr>
+    <tr>
+        <th>User ID: </th>
+        <td th:text="${userId}"></td>
+    </tr>
+    <tr>
+        <th>SAML Key Id: </th>
+        <td th:text="${samlId}"> </td>
+    </tr>
+    <tr>
+        <th>Keep-alive URL: </th>
+        <td th:text="${keepAliveURL}"> </td>
+    </tr>
+    <tr>
+        <th>User Type: </th>
+        <td th:text="${userType}"> </td>
+    </tr>
+    <tr>
+        <th>SAML Issuer Id: </th>
+        <td th:text="${samlIssuerId}"> </td>
+    </td>
+    </tr>
+</table>
+</div>
+<!--<hr/>-->
+<br/>
+<br/>
+
+<div>
+<h4>  Please hit the 'open UI Application' button to open the application </h4>
+
+<table class="table-bordered">
+    <tr>
+        <th>UserGUID: </th>
+        <td th:text="${userGUID}"></td>
+    </tr>
+</table>
+<br/>
+<form  th:action="${appURL}" method="post">
+    <input type="hidden" th:name="${samlId}" th:value="${samlEncodedToken}"/>
+    <input type="hidden" th:name="keepAliveUrl" th:value="${keepAliveURL}"/>
+    <input type="submit" formtarget="_blank" value="Open UI Application" class="btn btn-primary"/>
+</form>
+<br>
+<span>Press back button to go to previous page</span>
+<form action="/portal-app" method="post">
+    <input type="submit" value="<< Back" class="btn btn-default"/>
+</form>
+</div>
+</body>
+</html>

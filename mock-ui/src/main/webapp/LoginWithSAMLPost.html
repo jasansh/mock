@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+
+
+<script>
+window.addEventListener( "load", function () {
+
+	function urlencodeFormData(fd){
+    var s = '';
+    function encode(s){ return encodeURIComponent(s).replace(/%20/g,'+'); }
+    for(var pair of fd.entries()){
+        if(typeof pair[1]=='string'){
+            s += (s?'&':'') + encode(pair[0])+'='+encode(pair[1]);
+        }
+    }
+    return s;
+	}
+
+  function sendData() {
+
+    // Bind the FormData object and the form element
+    const FD = new FormData( form );
+    
+    // Set up our request 
+    const XHR = new XMLHttpRequest();
+    
+    XHR.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        // Here we go on the new page
+        document.write(XHR.responseText);
+      }
+    }; 
+    // Define what happens in case of error
+    XHR.addEventListener( "error", function( event ) {
+      alert( 'Oops! Something went wrong.' );
+    } );    
+       
+    const dest = FD.get('destination');
+    XHR.open( "POST", dest );
+    XHR.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
+        
+    // The data sent is what the user provided in the form
+    const data = 'token=' + FD.get('token');
+    XHR.send( data );
+  }
+ 
+  // Access the form element...
+  const form = document.getElementById( "test-form" );
+
+  // ...and take over its submit event.
+  form.addEventListener( "submit", function ( event ) {
+    event.preventDefault();
+
+    sendData();
+  } );
+} );
+</script>
+<body>
+  <div class="container">
+    <p>
+      <b>Login to VAM with SAML Authentication Response</b>
+    </p>
+    <p>
+      Drop the SAML Authentication Response (created with another tool) into token text box and verify the destination (can be changed).
+    </p>
+    <p>
+      Click Login to VAM. This sends the SAML Authentication Response (appended to destination url) to destination url with http POST. 
+    </p>
+    <form id="test-form">
+
+      <table cellspacing="0">
+        <tr>
+          <td>token :</td>
+          <td><input name="token" required size=48 /></td>
+        </tr>
+        <tr>
+          <td>destination url :</td>
+          <td><input name="destination"
+            value="https://httpbin.org/post" required size=48 />
+          </td>
+        </tr>
+      </table>
+      <br>
+      <button type="submit">Login To VAM</button>
+    </form>
+  </div>
+</body>
+
+</html>
